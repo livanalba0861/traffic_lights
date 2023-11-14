@@ -6,8 +6,12 @@ import {useEffect} from "react";
 export function App() {
 
   const [activeLight, setActiveLight] = useState("red");
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(()=>{
+
+    if (!isActive) return
+
     const interval = setInterval(()=>{
       switch(activeLight){
         case "red":
@@ -26,19 +30,7 @@ export function App() {
 
   })
 
-  function highlightActiveColor() {
-    const activeLight = document.querySelector('.traffic-light .active');
-    if (!activeLight) {
-      // No active light found, so highlight the first light
-      const firstLight = document.querySelector('.traffic-light .light:first-child');
-      firstLight.style.borderColor = '#add8e6'; // Light blue color
-    } else {
-      // Active light found, highlight it
-      activeLight.style.borderColor = '#add8e6'; // Light blue color
-    }
-  }
 
-  
   return (
     <>
       <div className="stick"/>
@@ -50,7 +42,7 @@ export function App() {
       <h1 style={{width: "fit-content", margin: "auto"}}>
         {activeLight}
       </h1>
-      <button onClick={highlightActiveColor}>Highlight Active Color</button>
+      <button onClick={()=> setIsActive(!isActive)}>Highlight Active Color</button>
     </>
   );
 
